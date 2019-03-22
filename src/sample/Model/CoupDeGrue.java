@@ -4,7 +4,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import service.LittleMoveService;
+//import service.LittleMoveService;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,7 +16,7 @@ import java.util.Map;
 public class CoupDeGrue  {
 
     public XSSFSheet sheet;
-    public LoadData data;
+    //public LoadData data;
 
     static int erreur = 1;
 
