@@ -18,7 +18,7 @@ public class CoupDeGrue  {
     public XSSFSheet sheet;
     //public LoadData data;
 
-    static int erreur = 1;
+    static int erreur = 2;
 
     public static ArrayList<Integer> up (ArrayList<Move> moves,int start, int end){
         int row = start;
@@ -165,27 +165,28 @@ public class CoupDeGrue  {
         int head = 0;
         int tale = 0;
         int i = 0;
-        while (find == false && i <=10){
+        while (find == false && start != end+1 ){
             int startDown1 = searchDown(moves,start,end).get(0);
-            int endDown = (searchDown(moves,start,end).get(1))-1;
+            int endDown = (searchDown(moves,start,end).get(1));
             int startUp = searchUp(moves,endDown,end).get(0);
-            int endUp = (searchUp(moves,endDown,end).get(1))-1;
-            int startTurn = searchTurnAndStandStill(moves,endUp-1,end).get(0);
-            int endTurn = (searchTurnAndStandStill(moves,endUp,end).get(1))-1;
+            int endUp = (searchUp(moves,endDown,end).get(1));
+            int startTurn = searchTurnAndStandStill(moves,endUp,end).get(0);
+            int endTurn = (searchTurnAndStandStill(moves,endUp,end).get(1));
             int startDown2 = searchDown(moves,endTurn-1,end).get(0);
 
-            System.out.println("start " + start + " endDown " + endDown + " startUp " + startUp + " endUp " + endUp + " startTurn " + startTurn + " endTurn " + endTurn + " startDown2 " + startDown2);
+            //System.out.println("start "+ start +" startDown " + startDown1 + " endDown " + endDown + " startUp " + (startUp-2) + " endUp " + endUp + " startTurn " + startTurn + " endTurn " + endTurn + " startDown2 " + (startDown2+1) + " end " + end);
 
-            if (endDown == startUp && endUp == startTurn && endTurn == startDown2){
+            if (endDown == startUp-2 && endUp == startTurn && endTurn == startDown2+1){
                 find = true;
                 head = startDown1;
                 tale = startDown2;
+                System.out.println(find);
 
-                System.out.println("h " + head + " t " + tale);
+                //System.out.println("h " + head + " t " + tale);
             }
             else {
                 start = endDown;
-                System.out.println("start " + start);
+                //System.out.println("start " + start);
             }
 
             i++;
@@ -200,10 +201,22 @@ public class CoupDeGrue  {
 
     public static ArrayList<ArrayList<Integer>> listCDG(ArrayList<Move> moves,int start, int end){
         ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
-        while (start!=(end-1)){
-            list.add(searchCDG(moves,start,end));
-            start = searchCDG(moves,start,end).get(1);
-            System.out.println(start);
+        int i =end;
+        while (start!=(end)){
+            //searchCDG(moves,start,end);
+            if(start!= end && searchCDG(moves,start,end).get(1) != 0 && searchCDG(moves,start,end).get(0) != 0){
+                list.add(searchCDG(moves,start,end));
+                System.out.println(list);
+                start = searchCDG(moves,start,end).get(1);
+            }
+
+            else if (start!= end && searchCDG(moves,start,end).get(1) == 0 && searchCDG(moves,start,end).get(0) == 0){
+                start++;
+                System.out.println("hgfhgf " + start + " " + end);
+            }
+
+            //System.out.println("hgfhgf " + start + " " + end);
+
         }
 
         return list;

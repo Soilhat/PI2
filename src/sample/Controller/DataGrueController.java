@@ -55,12 +55,12 @@ public class DataGrueController implements Initializable {
         Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
         Date date = Date.from(instant);
         System.out.println(localDate);// + "\n" + instant + "\n" + date);
-        printDate.setText(localDate +"");// + "\n" + instant + "\n" + date);
+        //printDate.setText(localDate +"");// + "\n" + instant + "\n" + date);
         /*FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");*/
         FileChooser fileChooser = new FileChooser();
 
-        Stage stage = new Stage();
+        /*Stage stage = new Stage();
         Button button = new Button("Select File");
         button.setOnAction(e -> {
             File selectedFile = fileChooser.showOpenDialog(stage);
@@ -69,12 +69,16 @@ public class DataGrueController implements Initializable {
         Scene scene = new Scene(vBox, 960, 600);
 
         stage.setScene(scene);
-        stage.show();
+        stage.show();*/
 
         /*stage.setTitle("Choose a file");
         fileChooser.showOpenDialog(stage);
         stage.setScene(new Scene(root, 300, 275));
         stage.show();*/
+
+        String[] dateFormat = (localDate+"").split("-");
+        printDate.setText(dateFormat[2]+"/"+dateFormat[1]+"/"+dateFormat[0]);
+
     }
 
     public void chooseFile(){
