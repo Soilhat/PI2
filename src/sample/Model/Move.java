@@ -115,12 +115,4 @@ public class Move
     public void setVitesse(Double vitesse) {
         this.vitesse = vitesse;
     }
-
-
-    @Override
-    public String toString() {
-        return this.radius + " " + this.height + " " + this.date;
-    }
 }
-
-
