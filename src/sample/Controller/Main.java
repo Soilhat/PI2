@@ -16,7 +16,7 @@ public class Main extends Application {
         FileChooser fileChooser = new FileChooser();
         /*fileChooser.setTitle("Open Resource File");
         fileChooser.showOpenDialog(primaryStage);*/
-        primaryStage.setScene(new Scene(root, 700, 275));
+        primaryStage.setScene(new Scene(root, 1400, 700));
         primaryStage.show();
     }
 

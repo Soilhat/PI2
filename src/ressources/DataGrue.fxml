@@ -4,20 +4,22 @@
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="758.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.DataGrueController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.DataGrueController">
    <children>
-      <DatePicker id="datePicker" fx:id="datePicker" layoutX="170.0" layoutY="64.0" />
-      <TextField id="printDate" fx:id="printDate" layoutX="428.0" layoutY="64.0" prefHeight="25.0" prefWidth="324.0" />
-      <Button id="btnDate" layoutX="372.0" layoutY="64.0" mnemonicParsing="false" onAction="#actionDate" prefHeight="25.0" prefWidth="36.0" text="Ok" />
-      <Button fx:id="btnFile" layoutX="223.0" layoutY="176.0" mnemonicParsing="false" onAction="#chooseFile" text="File" />
-      <ScrollPane layoutX="428.0" layoutY="112.0" prefHeight="259.0" prefWidth="519.0" AnchorPane.rightAnchor="77.0">
+      <DatePicker id="datePicker" fx:id="datePicker" layoutX="38.0" layoutY="139.0" promptText="Choose a date" />
+      <TextField id="printDate" fx:id="printDate" layoutX="561.0" layoutY="27.0" prefHeight="25.0" prefWidth="324.0" promptText="name of the file" />
+      <Button id="btnDate" layoutX="221.0" layoutY="139.0" mnemonicParsing="false" onAction="#actionDate" prefHeight="25.0" prefWidth="36.0" text="Ok" />
+      <Button fx:id="btnFile" layoutX="38.0" layoutY="27.0" mnemonicParsing="false" onAction="#chooseFile" prefHeight="25.0" prefWidth="174.0" text="Choose a file" />
+      <ScrollPane layoutX="432.0" layoutY="156.0" prefHeight="259.0" prefWidth="956.0" AnchorPane.rightAnchor="12.0">
          <content>
-            <LineChart fx:id="cdg" prefHeight="237.0" prefWidth="882.0">
+            <LineChart fx:id="cdg" prefHeight="237.0" prefWidth="1280.0">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
@@ -27,5 +29,20 @@
             </LineChart>
          </content>
       </ScrollPane>
+      <ComboBox layoutX="38.0" layoutY="74.0" prefHeight="25.0" prefWidth="220.0" promptText="Choose a category" />
+      <TextField layoutX="258.0" layoutY="203.0" prefHeight="25.0" prefWidth="36.0" />
+      <TextField layoutX="258.0" layoutY="242.0" prefHeight="25.0" prefWidth="36.0" />
+      <Text layoutX="44.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="temps total des coups de grue " wrappingWidth="232.00001120567322" />
+      <Text layoutX="44.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="nombre total de coup de grue " />
+      <Text layoutX="44.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" text="temps moyen pour un coup de grue " />
+      <TextField layoutX="259.0" layoutY="281.0" prefHeight="25.0" prefWidth="36.0" />
+      <ComboBox fx:id="comboHour" layoutX="784.0" layoutY="99.0" onAction="#btnComboHour" prefHeight="25.0" prefWidth="72.0" promptText="n° 1" />
+      <Text layoutX="44.0" layoutY="341.0" strokeType="OUTSIDE" strokeWidth="0.0" text="distance z parcourue" wrappingWidth="162.96680569648743" />
+      <Text layoutX="44.0" layoutY="386.0" strokeType="OUTSIDE" strokeWidth="0.0" text="distance x parcourue" wrappingWidth="129.13671875" />
+      <Text layoutX="44.0" layoutY="435.0" strokeType="OUTSIDE" strokeWidth="0.0" text="distance y parcourue" wrappingWidth="119.13671875" />
+      <TextField layoutX="258.0" layoutY="324.0" prefHeight="25.0" prefWidth="36.0" />
+      <TextField layoutX="258.0" layoutY="369.0" prefHeight="25.0" prefWidth="36.0" />
+      <TextField layoutX="258.0" layoutY="418.0" prefHeight="25.0" prefWidth="36.0" />
+      <Text layoutX="432.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom du fichier Excel :" wrappingWidth="129.13671731948853" />
    </children>
 </AnchorPane>
