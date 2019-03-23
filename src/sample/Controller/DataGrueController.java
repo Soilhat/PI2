@@ -1,8 +1,13 @@
 package Controller;
 
+import Model.Move;
+import Model.ReadExcel;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -12,20 +17,26 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
+import java.text.ParseException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import static Model.ReadExcel.oneByOneExample;
 
-public class DataGrueController implements Initializable {
+
+public class DataGrueController  implements Initializable {
     @FXML
     DatePicker datePicker;
     @FXML
     TextField printDate;
     @FXML
     Button btnDate;
+    @FXML
+    LineChart cdg;
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
@@ -46,6 +57,8 @@ public class DataGrueController implements Initializable {
             printDate.setText(localDate + "\n" + instant + "\n" + date);
 
         });*/
+
+
             System.out.println("gjgj");
     }
     public void actionDate(){
@@ -96,4 +109,6 @@ public class DataGrueController implements Initializable {
         printDate.setText(selectedFile.getAbsolutePath());
 
     }
+
+
 }
