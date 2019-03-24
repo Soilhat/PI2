@@ -13,9 +13,12 @@ import service.move.LittleMoveService;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class LittleMoveServiceImpl implements LittleMoveService
 {
+    private static final Long LITTLE_MOVE_LIMIT_DURATION = 60000L;
+
     private CsvLittleMoveService csvLittleMoveService;
 
     public LittleMoveServiceImpl()
@@ -61,7 +64,8 @@ public class LittleMoveServiceImpl implements LittleMoveService
             }
         }
         moveDurations.add(duration);
-        return moveDurations;
+
+        return onlyLongLittleMove(moveDurations);
     }
 
     @Override
@@ -181,5 +185,10 @@ public class LittleMoveServiceImpl implements LittleMoveService
             result.put(cell.getStringCellValue(), cell.getColumnIndex());
         }
         return result;
+    }
+
+    private List<MoveDuration> onlyLongLittleMove(List<MoveDuration> moveDurations)
+    {
+        return moveDurations.stream().filter(m -> m.getDuration() > LITTLE_MOVE_LIMIT_DURATION).collect(Collectors.toList());
     }
 }

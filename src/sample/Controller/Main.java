@@ -58,7 +58,7 @@ public class Main extends Application {
             System.out.println("threshold : " + threshold);
             System.out.println("Loading...");
 
-            LittleMoveService littleMoveService = new LittleMoveServiceImpl(/*fa afaka apetaka eto koa gab fa bon... :D */);
+            LittleMoveService littleMoveService = new LittleMoveServiceImpl();
             //Recupère et calcule la durée des petits mouvements
             List<MoveDuration> stats = littleMoveService.littleMoveDuration(threshold);
 
