@@ -97,12 +97,12 @@ public class CoupDeGrue  {
         //ArrayList<Integer> pair = new ArrayList<Integer>(2);
         for (int i =start; i<=end; i++){
 
-            if(moves.get(i).getHeight() - moves.get(i+1).getHeight()<0 && moves.get(i).getHeight() - moves.get(i+2).getHeight()<0 && moves.get(i).getHeight() - moves.get(i+3).getHeight()<0){
+            if(moves.get(i).getHeight() - moves.get(i+1).getHeight()<=0 && moves.get(i+1).getHeight() - moves.get(i+2).getHeight()<=0 && moves.get(i+2).getHeight() - moves.get(i+3).getHeight()<=0){
                 head++;
                 continue;
             }
 
-            else if(moves.get(i).getHeight() - moves.get(i+1).getHeight()>0 && moves.get(i).getHeight() - moves.get(i+2).getHeight()>0&& moves.get(i).getHeight() - moves.get(i+3).getHeight()>0 ){
+            else if(moves.get(i).getHeight() - moves.get(i+1).getHeight()>0 && moves.get(i+1).getHeight() - moves.get(i+2).getHeight()>0&& moves.get(i+2).getHeight() - moves.get(i+3).getHeight()>0 ){
                 head = i;
                 a=i;
                 break;
@@ -157,8 +157,99 @@ public class CoupDeGrue  {
         return standStill(moves,head,end);
     }
 
+
+    public static String findNextMove(ArrayList<Move> moves, int start, int end){
+        String nextMove ="";
+        int up = searchUp(moves,start,end).get(0);
+        int down = searchDown(moves,start,end).get(0);
+        /*int turn = searchTurnAndStandStill(moves,start,end).get(0);
+
+        if(Math.min(up,Math.min(down,turn)) == up) nextMove = "up";
+        if(Math.min(up,Math.min(down,turn)) == down) nextMove = "down";
+        if(Math.min(up,Math.min(down,turn)) == turn) nextMove = "turn";*/
+
+        if(Math.min(up,down) == up) nextMove = "up";
+        if(Math.min(up,down) == down) nextMove = "down";
+
+        return nextMove;
+    }
+
     public static ArrayList<Integer> searchCDG(ArrayList<Move> moves,int start, int end){
+        ArrayList<Integer> pair = new ArrayList<Integer>();
         Boolean find = false;
+        pair.add(0);
+        pair.add(0);
+        int head = 0;
+        int tale = 0;
+        int startDown1 = searchDown(moves,start,end).get(0);
+        int endDown = (searchDown(moves,start,end).get(1));
+        while (find == false) {
+            if (findNextMove(moves, endDown, end) == "up") {
+                int startUp = searchUp(moves, endDown, end).get(0);
+                int endUp = searchUp(moves, endDown, end).get(1);
+                /*if (findNextMove(moves,endUp,end) == "turn"){
+                    int startTurn = searchTurnAndStandStill(moves,endUp,end).get(0);
+                    int endTurn = (searchTurnAndStandStill(moves,endUp,end).get(1));
+                    if (findNextMove(moves,endTurn,end) == "down"){
+                        find = true;
+                        head = startDown1;
+                        tale = searchDown(moves,endTurn-1,end).get(0);
+                    }
+                }*/
+                if (findNextMove(moves, endUp, end) == "down") {
+                    System.out.println("endUp1 " + endUp);
+                    find = true;
+                    head = startDown1;
+                    tale = searchDown(moves, endUp, end).get(1);
+                }
+                else if (findNextMove(moves, endUp, end) == "up") {
+                    endUp = searchUp(moves, endUp, end).get(1);
+                    if (findNextMove(moves, endUp, end) == "down") {
+                        System.out.println("endUp2 " + endUp);
+                        find = true;
+                        head = startDown1;
+                        tale = searchDown(moves, endUp, end).get(1);
+                    }
+                }
+            }
+            else if (findNextMove(moves, endDown, end) == "down") {
+                endDown = (searchDown(moves, endDown, end).get(1));
+                int startUp = searchUp(moves, endDown, end).get(0);
+                int endUp = searchUp(moves, endDown, end).get(1);
+                /*if (findNextMove(moves,endUp,end) == "turn"){
+                    int startTurn = searchTurnAndStandStill(moves,endUp,end).get(0);
+                    int endTurn = (searchTurnAndStandStill(moves,endUp,end).get(1));
+                    if (findNextMove(moves,endTurn,end) == "down"){
+                        find = true;
+                        head = startDown1;
+                        tale = searchDown(moves,endTurn-1,end).get(0);
+                    }
+                }*/
+                if (findNextMove(moves, endUp, end) == "down") {
+                    System.out.println("endUp3 " + endUp);
+                    endUp = searchUp(moves,endUp,end).get(1);
+                    System.out.println("endUp3 " + endUp);
+                    find = true;
+                    head = startDown1;
+                    tale = searchDown(moves, endUp, end).get(1);
+
+                }
+                else if (findNextMove(moves, endUp, end) == "up") {
+                    endUp = searchUp(moves, endUp, end).get(1);
+                    if (findNextMove(moves, endUp, end) == "down") {
+                        find = true;
+                        head = startDown1;
+                        System.out.println("endUp4 " + endUp);
+                        tale = searchDown(moves, endUp, end).get(1);
+                    }
+                }
+            } else start = endDown;
+        }
+        pair.set(0,head);
+        pair.set(1,tale);
+
+
+        /*Boolean find = false;
         ArrayList<Integer> pair = new ArrayList<Integer>();
         pair.add(0);
         pair.add(0);
@@ -175,18 +266,14 @@ public class CoupDeGrue  {
             int startDown2 = searchDown(moves,endTurn-1,end).get(0);
 
             //System.out.println("start "+ start +" startDown " + startDown1 + " endDown " + endDown + " startUp " + (startUp-2) + " endUp " + endUp + " startTurn " + startTurn + " endTurn " + endTurn + " startDown2 " + (startDown2+1) + " end " + end);
-
             if (endDown == startUp-2 && endUp == startTurn && endTurn == startDown2+1){
                 find = true;
                 head = startDown1;
                 tale = startDown2;
                 System.out.println(find);
-
-                //System.out.println("h " + head + " t " + tale);
             }
             else {
                 start = endDown;
-                //System.out.println("start " + start);
             }
 
             i++;
@@ -194,7 +281,7 @@ public class CoupDeGrue  {
         }
 
         pair.set(0,head);
-        pair.set(1,tale);
+        pair.set(1,tale);*/
 
         return pair;
     }
@@ -214,8 +301,6 @@ public class CoupDeGrue  {
                 start++;
                 System.out.println("hgfhgf " + start + " " + end);
             }
-
-            //System.out.println("hgfhgf " + start + " " + end);
 
         }
 

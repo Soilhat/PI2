@@ -20,6 +20,10 @@ public class Move
     private Double distance;
     private Double vitesse;
 
+    public Move(){
+
+    }
+
     public String getStringDate() {
         return stringDate;
     }

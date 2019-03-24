@@ -9,18 +9,24 @@ import static Model.ReadExcel.oneByOneExample;
 public class MainTest {
     public static void main(String[] args) throws ParseException {
         ArrayList<Move> moves = oneByOneExample("data.csv");
-        /*System.out.println(moves.size());
-        System.out.println(searchDown(moves,0,3000));
-        System.out.println(searchUp(moves,51,3000));
+        //System.out.println(moves.size());
+        //System.out.println(searchDown(moves,360,3000));
+        //System.out.println(findNextMove(moves,417,3000));
+        /*System.out.println(searchUp(moves,51,3000));
 
         System.out.println(searchTurnAndStandStill(moves,100,3000));
         System.out.println(searchDown(moves,128,3000));*/
-        System.out.println(moves.get(3).getDate());
+        //System.out.println(moves.get(3).getDate());
 
         //System.out.println(standStill(moves,0,498));
 
-        //System.out.println(searchCDG(moves,3000,moves.size()-5));
-        //System.out.println(listCDG(moves,0,moves.size()-5));
+        /*t endDown = (searchDown(moves,1000,50000).get(1));
+        System.out.println(endDown);
+        System.out.println(searchDown(moves,2380,3000));
+        System.out.println(searchUp(moves,endDown,3000));
+        System.out.println(findNextMove(moves,endDown,3000));*/
+        System.out.println(searchDown(moves,49996,50000));
+        //stem.out.println(listCDG(moves,0,50000));
 
         //System.out.println(moves.get(3).getDate());
         //System.out.println(moves.get(4).getDate());

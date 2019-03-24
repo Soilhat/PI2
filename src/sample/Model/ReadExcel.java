@@ -16,47 +16,13 @@ public class ReadExcel {
 
         oneByOneExample("data.csv");
     }
-    /*public static ArrayList<String[]> oneByOneExample(String fileName) {
-        ArrayList<String[]> tab = new ArrayList<String[]>();
-        try{
-            ClassLoader c = Thread.currentThread().getContextClassLoader();
-            InputStream is = c.getResourceAsStream(fileName);
-            InputStreamReader s = new InputStreamReader(is);
-            BufferedReader br = //new BufferedReader(new FileReader("sqlify-result-8fd341696c7d4.csv"));
-                    new  BufferedReader(s);
 
-            BufferedWriter file = new BufferedWriter(new FileWriter("test.csv"));
-            //BufferedWriter file2 = new BufferedWriter(new FileWriter("books.csv"));
-
-            String line="";
-            String id="";
-
-            while((line = br.readLine()) != null){
-                String[] val = line.split(";");
-                tab.add(val);
-                List<String> val2 = new ArrayList<String>(Arrays.asList(val));
-
-                if(!val[0].equals("NULL")) {
-                    id = val[0];
-                    val2.remove(1);
-                    String truc = StringUtils.join(val, ';');
-                    //file2.write(truc + '\n');
-                    file.write(truc +"\n");
-                }
-
-            }
-
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
-        return tab;
-
-    }*/
 
     public static ArrayList<Move> oneByOneExample(String fileName) throws ParseException {
         ArrayList<String[]> tab = new ArrayList<String[]>();
         ArrayList<Move> moves = new ArrayList<Move>();
+        moves.add(new Move());
+        ArrayList<Move> goodMoves = new ArrayList<Move>();
 
         try{
             ClassLoader c = Thread.currentThread().getContextClassLoader();
@@ -70,10 +36,14 @@ public class ReadExcel {
 
             String line="";
             String id="";
-            line = br.readLine();
+            int i =0;
+            String firstLine = br.readLine();
+            file.write(firstLine);
             while((line = br.readLine()) != null){
+
                 Move m = new Move();
                 String[] val = line.split(";");
+                //String[] nextval = br.readLine().split(";");
                 tab.add(val);
                 //m.setTime(Timestamp.valueOf(val[5]));
                 m.setRadius(Integer.parseInt(val[1]));
@@ -96,29 +66,40 @@ public class ReadExcel {
                 m.setVitesse(Double.parseDouble(val[11].replace(',','.')));
                 //m.setDate(Date.parseDate(val[5]));
                 //List<String> val2 = new ArrayList<String>(Arrays.asList(val));
-                String truc = StringUtils.join(val, ';');
-                file.write(truc +"\n");
-                //System.out.println(m);
+
 
                 moves.add(m);
-                if(!val[0].equals("NULL")) {
-                    id = val[0];
-                    //val2.remove(1);
-
-                    //file2.write(truc + '\n');
-
+                i++;
+                if(moves.get(i-1).getHeight() != moves.get(i).getHeight() && moves.get(i-1).getAngle() != moves.get(i).getAngle()) {
+                    goodMoves.add(moves.get(i));
+                    String truc = StringUtils.join(val, ';');
+                    file.write(truc +"\n");
                 }
+                //System.out.println(m);
+
 
             }
             //System.out.println(file);
+
 
         }
         catch (IOException e){
             e.printStackTrace();
         }
+        moves.remove(0); //on retire le mouvement null
+        System.out.println(moves.size());
+        System.out.println(goodMoves.size());
+        /*for (int i = 0; i<moves.size()-1; i++){
+            if(moves.get(i).getHeight() != moves.get(i+1).getHeight() && moves.get(i).getAngle() != moves.get(i+1).getAngle()) {
+                goodMoves.add(moves.get(i));
+
+                //System.out.println("h: " + val[2] +" next_h: " + nextval[2] + " a " + val[4] + " next_a " + nextval[4]);
+
+            }
+        }*/
 
 
-        return moves;
+        return goodMoves;
 
     }
 }

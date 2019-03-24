@@ -8,6 +8,8 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
@@ -16,12 +18,12 @@
       <DatePicker id="datePicker" fx:id="datePicker" layoutX="38.0" layoutY="139.0" promptText="Choose a date" />
       <TextField id="printDate" fx:id="printDate" layoutX="561.0" layoutY="27.0" prefHeight="25.0" prefWidth="324.0" promptText="name of the file" />
       <Button id="btnDate" layoutX="221.0" layoutY="139.0" mnemonicParsing="false" onAction="#actionDate" prefHeight="25.0" prefWidth="36.0" text="Ok" />
-      <Button fx:id="btnFile" layoutX="38.0" layoutY="27.0" mnemonicParsing="false" onAction="#chooseFile" prefHeight="25.0" prefWidth="174.0" text="Choose a file" />
+      <Button fx:id="btnFile" layoutX="315.0" layoutY="27.0" mnemonicParsing="false" onAction="#chooseFile" prefHeight="25.0" prefWidth="101.0" text="Choose a file" />
       <ScrollPane layoutX="432.0" layoutY="156.0" prefHeight="259.0" prefWidth="956.0" AnchorPane.rightAnchor="12.0">
          <content>
             <LineChart fx:id="cdg" prefHeight="237.0" prefWidth="1280.0">
               <xAxis>
-                <CategoryAxis side="BOTTOM" />
+                <CategoryAxis prefHeight="0.0" prefWidth="1500.0" side="BOTTOM" />
               </xAxis>
               <yAxis>
                 <NumberAxis side="LEFT" />
@@ -44,5 +46,15 @@
       <TextField layoutX="258.0" layoutY="369.0" prefHeight="25.0" prefWidth="36.0" />
       <TextField layoutX="258.0" layoutY="418.0" prefHeight="25.0" prefWidth="36.0" />
       <Text layoutX="432.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom du fichier Excel :" wrappingWidth="129.13671731948853" />
+      <ImageView fx:id="imcad42" fitHeight="117.0" fitWidth="151.0" layoutX="932.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="CAD.42_LOGO_RVB.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="82.0" fitWidth="203.0" layoutX="1165.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="logo_esilv_png_couleur.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

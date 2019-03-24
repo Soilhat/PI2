@@ -13,11 +13,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.InputStream;
 import java.net.URL;
 import java.text.ParseException;
 import java.time.Instant;
@@ -41,6 +44,8 @@ public class DataGrueController  implements Initializable {
     LineChart cdg;
     @FXML
     ComboBox<String> comboHour;
+    @FXML
+    ImageView imcad42;
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
@@ -54,6 +59,10 @@ public class DataGrueController  implements Initializable {
         System.out.println("gjgj");
 
         comboHour.getItems().addAll("1. 8h - 10h", "2. 10h - 12h", "3. 12h - 14h");
+        /*Class<?> clazz = this.getClass();
+        InputStream input = clazz.getResourceAsStream("CAD.42_LOGO_RVB.png");
+        Image image = new Image(input);
+        imcad42= new ImageView(image);*/
 
 
     }
@@ -169,7 +178,7 @@ public class DataGrueController  implements Initializable {
             if(comboText[0].equals("3.")) {
                 //System.out.println(heure[0]);
                 //System.out.println("bbbbb");
-                if (heure[0].equals("12") || heure[0].equals("13")) {
+                if (heure[0].equals("12")){ //|| heure[0].equals("13")) {
                     //System.out.println("aaaaa");
                     end ++;
                     newListMove.add(moves.get(i));
