@@ -25,8 +25,8 @@ public class MainTest {
         System.out.println(searchDown(moves,2380,3000));
         System.out.println(searchUp(moves,endDown,3000));
         System.out.println(findNextMove(moves,endDown,3000));*/
-        System.out.println(searchDown(moves,49996,50000));
-        //stem.out.println(listCDG(moves,0,50000));
+        //System.out.println(searchCDG(moves,49378,50000));
+        System.out.println(listCDG(moves,0,50000).size());
 
         //System.out.println(moves.get(3).getDate());
         //System.out.println(moves.get(4).getDate());

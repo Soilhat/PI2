@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import static Model.CoupDeGrue.listCDG;
 import static Model.ReadExcel.oneByOneExample;
 
 
@@ -46,6 +47,8 @@ public class DataGrueController  implements Initializable {
     ComboBox<String> comboHour;
     @FXML
     ImageView imcad42;
+    @FXML
+    TextField nbTotalCdg;
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
@@ -169,7 +172,7 @@ public class DataGrueController  implements Initializable {
             }
             if(comboText[0].equals("2.")) {
                     //System.out.println(heure[0]);
-                if (heure[0].equals("10") || heure[0].equals("11")) {
+                if (heure[0].equals("10")){ //|| heure[0].equals("11")) {
                     end ++;
                     newListMove.add(moves.get(i));
 
@@ -191,6 +194,7 @@ public class DataGrueController  implements Initializable {
         //end =i;
 
         System.out.println(start + "  " + end);
+        nbTotalCdg.setText(Integer.toString(listCDG(moves,start,end).size()));
         plotCDG(start,end);
 
     }

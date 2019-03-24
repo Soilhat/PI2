@@ -182,9 +182,11 @@ public class CoupDeGrue  {
         int head = 0;
         int tale = 0;
         int startDown1 = searchDown(moves,start,end).get(0);
-        int endDown = (searchDown(moves,start,end).get(1));
+        //int endDown = (searchDown(moves,start,end).get(1));
         while (find == false) {
+            int endDown = (searchDown(moves,start,end).get(1));
             if (findNextMove(moves, endDown, end) == "up") {
+                //System.out.println(start);
                 int startUp = searchUp(moves, endDown, end).get(0);
                 int endUp = searchUp(moves, endDown, end).get(1);
                 /*if (findNextMove(moves,endUp,end) == "turn"){
@@ -197,7 +199,7 @@ public class CoupDeGrue  {
                     }
                 }*/
                 if (findNextMove(moves, endUp, end) == "down") {
-                    System.out.println("endUp1 " + endUp);
+                    //System.out.println("endUp1 " + endUp);
                     find = true;
                     head = startDown1;
                     tale = searchDown(moves, endUp, end).get(1);
@@ -205,12 +207,14 @@ public class CoupDeGrue  {
                 else if (findNextMove(moves, endUp, end) == "up") {
                     endUp = searchUp(moves, endUp, end).get(1);
                     if (findNextMove(moves, endUp, end) == "down") {
-                        System.out.println("endUp2 " + endUp);
+                        //System.out.println("endUp2 " + endUp);
                         find = true;
                         head = startDown1;
                         tale = searchDown(moves, endUp, end).get(1);
                     }
+                    else start = endDown;
                 }
+                else start = endDown;
             }
             else if (findNextMove(moves, endDown, end) == "down") {
                 endDown = (searchDown(moves, endDown, end).get(1));
@@ -226,9 +230,9 @@ public class CoupDeGrue  {
                     }
                 }*/
                 if (findNextMove(moves, endUp, end) == "down") {
-                    System.out.println("endUp3 " + endUp);
+                    //System.out.println("endUp3 " + endUp);
                     endUp = searchUp(moves,endUp,end).get(1);
-                    System.out.println("endUp3 " + endUp);
+                    //System.out.println("endUp3 " + endUp);
                     find = true;
                     head = startDown1;
                     tale = searchDown(moves, endUp, end).get(1);
@@ -239,9 +243,10 @@ public class CoupDeGrue  {
                     if (findNextMove(moves, endUp, end) == "down") {
                         find = true;
                         head = startDown1;
-                        System.out.println("endUp4 " + endUp);
+                        //System.out.println("endUp4 " + endUp);
                         tale = searchDown(moves, endUp, end).get(1);
                     }
+                    else start = endDown;
                 }
             } else start = endDown;
         }
@@ -288,19 +293,21 @@ public class CoupDeGrue  {
 
     public static ArrayList<ArrayList<Integer>> listCDG(ArrayList<Move> moves,int start, int end){
         ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
-        int i =end;
-        while (start!=(end)){
+        int i =0;
+        while (!searchCDG(moves,start,end).get(1).equals(searchCDG(moves,start,end).get(0))){
             //searchCDG(moves,start,end);
-            if(start!= end && searchCDG(moves,start,end).get(1) != 0 && searchCDG(moves,start,end).get(0) != 0){
+            if(searchCDG(moves,start,end).get(1) != 0 && searchCDG(moves,start,end).get(0) != 0 ){
                 list.add(searchCDG(moves,start,end));
-                System.out.println(list);
+                //System.out.println(list);
                 start = searchCDG(moves,start,end).get(1);
+
             }
 
-            else if (start!= end && searchCDG(moves,start,end).get(1) == 0 && searchCDG(moves,start,end).get(0) == 0){
+
+            /*else if (start!= end && searchCDG(moves,start,end).get(1) == 0 && searchCDG(moves,start,end).get(0) == 0){
                 start++;
                 System.out.println("hgfhgf " + start + " " + end);
-            }
+            }*/
 
         }
 
