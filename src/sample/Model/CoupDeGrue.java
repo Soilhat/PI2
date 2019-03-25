@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class CoupDeGrue  {
 
-    public XSSFSheet sheet;
+    static long inactivityThreshold = 600000; //1h40mn
     //public LoadData data;
 
     static int erreur = 2;
@@ -331,7 +331,7 @@ public class CoupDeGrue  {
         BigDecimal bd = new BigDecimal(distance);
         bd= bd.setScale(2,BigDecimal.ROUND_DOWN);
         distance = bd.doubleValue();
-        return distance;
+        return distance/10;
     }
     public static double maximumDistanceY (ArrayList<Move> moves, int start, int end){
         double distance = 0;
@@ -341,7 +341,7 @@ public class CoupDeGrue  {
         BigDecimal bd = new BigDecimal(distance);
         bd= bd.setScale(2,BigDecimal.ROUND_DOWN);
         distance = bd.doubleValue();
-        return distance;
+        return distance/10;
     }
     public static double maximumDistanceZ (ArrayList<Move> moves, int start, int end){
         double distance = 0;
@@ -351,7 +351,7 @@ public class CoupDeGrue  {
         BigDecimal bd = new BigDecimal(distance);
         bd= bd.setScale(2,BigDecimal.ROUND_DOWN);
         distance = bd.doubleValue();
-        return distance;
+        return distance/10;
     }
     public static int maximumAngle (ArrayList<Move> moves, int start, int end){
         int distance = 0;
@@ -385,6 +385,21 @@ public class CoupDeGrue  {
         return timeStampAndDuration;
     }
 
+    public static String endDay(ArrayList<Move> moves){
+        //String end ="";
+        int end = -1;
+        for(int i =0; i<moves.size()-3; i++){
+            if(moves.get(i+1).getDate().getTime()-moves.get(i).getDate().getTime()>inactivityThreshold){
+                end = i;
+                break;
+            }
+        }
+        long duree = moves.get(end).getDate().getTime();
+        Timestamp t = new Timestamp(duree);
+        String[] date = t.toString().split(" ");
+        return date[1];
+
+    }
 
 
 

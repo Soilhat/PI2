@@ -16,7 +16,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.DataGrueController">
    <children>
       <DatePicker id="datePicker" fx:id="datePicker" layoutX="38.0" layoutY="139.0" promptText="Choose a date" />
-      <TextField id="printDate" fx:id="printDate" layoutX="561.0" layoutY="27.0" prefHeight="25.0" prefWidth="324.0" promptText="name of the file" />
+      <TextField id="printDate" fx:id="fileName" layoutX="561.0" layoutY="27.0" prefHeight="25.0" prefWidth="324.0" promptText="name of the file" />
       <Button id="btnDate" layoutX="221.0" layoutY="139.0" mnemonicParsing="false" onAction="#actionDate" prefHeight="25.0" prefWidth="36.0" text="Ok" />
       <Button fx:id="btnFile" layoutX="315.0" layoutY="27.0" mnemonicParsing="false" onAction="#chooseFile" prefHeight="25.0" prefWidth="101.0" text="Choose a file" />
       <ScrollPane layoutX="432.0" layoutY="156.0" prefHeight="259.0" prefWidth="956.0" AnchorPane.rightAnchor="12.0">
@@ -46,15 +46,16 @@
       <TextField layoutX="258.0" layoutY="369.0" prefHeight="25.0" prefWidth="36.0" />
       <TextField layoutX="258.0" layoutY="418.0" prefHeight="25.0" prefWidth="36.0" />
       <Text layoutX="432.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom du fichier Excel :" wrappingWidth="129.13671731948853" />
-      <ImageView fx:id="imcad421" fitHeight="117.0" fitWidth="151.0" layoutX="942.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imcad42" fitHeight="117.0" fitWidth="151.0" layoutX="932.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../DataGrue/src/ressources/CAD.42_LOGO_RVB.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="82.0" fitWidth="203.0" layoutX="1175.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="82.0" fitWidth="203.0" layoutX="1165.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../DataGrue/src/ressources/logo_esilv_png_couleur.png" />
          </image>
       </ImageView>
+
    </children>
 </AnchorPane>

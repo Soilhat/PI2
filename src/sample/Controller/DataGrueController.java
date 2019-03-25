@@ -40,7 +40,7 @@ public class DataGrueController  implements Initializable {
     @FXML
     DatePicker datePicker;
     @FXML
-    TextField printDate;
+    TextField fileName;
     @FXML
     Button btnDate;
     @FXML
@@ -84,7 +84,7 @@ public class DataGrueController  implements Initializable {
         System.out.println(localDate);
 
         String[] dateFormat = (localDate+"").split("-");
-        printDate.setText(dateFormat[2]+"/"+dateFormat[1]+"/"+dateFormat[0]);
+        //printDate.setText(dateFormat[2]+"/"+dateFormat[1]+"/"+dateFormat[0]);
 
     }
 
@@ -100,7 +100,7 @@ public class DataGrueController  implements Initializable {
         stage.setScene(scene);
         stage.show();*/
 
-        printDate.setText(selectedFile.getAbsolutePath());
+        fileName.setText(selectedFile.getName());
 
     }
     public void plotCDG(int start, int end) throws ParseException {
@@ -108,7 +108,7 @@ public class DataGrueController  implements Initializable {
         XYChart.Series set1 = new XYChart.Series<>();
         ObservableList<XYChart.Data> data = FXCollections.observableArrayList();
 
-        ArrayList<Move> moves = oneByOneExample("data.csv");
+        ArrayList<Move> moves = oneByOneExample("data3.csv");
         XYChart.Series<Integer,Integer> series = new XYChart.Series<Integer, Integer>();
         series.getData().add(new XYChart.Data(Integer.toString(1), 23));
         ArrayList<LineChart.Data> list = new ArrayList<LineChart.Data>();
@@ -126,7 +126,7 @@ public class DataGrueController  implements Initializable {
     }
 
     public void btnComboHour() throws ParseException{
-        ArrayList<Move> moves = oneByOneExample("data.csv");
+        ArrayList<Move> moves = oneByOneExample("data3.csv");
         ArrayList<Move> newListMove = new ArrayList<Move>();
         int start=-1;
         int end;

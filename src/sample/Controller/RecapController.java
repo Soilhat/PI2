@@ -5,7 +5,9 @@ import Model.ReadExcel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
@@ -31,15 +33,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-import static Model.CoupDeGrue.listCDG;
-import static Model.CoupDeGrue.totalDurationCDG;
+import static Model.CoupDeGrue.*;
 import static Model.ReadExcel.oneByOneExample;
 
 public class RecapController implements Initializable {
     @FXML
     DatePicker datePicker;
     @FXML
-    TextField printDate;
+    TextField fileName;
     @FXML
     Button btnDate;
     @FXML
@@ -47,11 +48,27 @@ public class RecapController implements Initializable {
     @FXML
     ComboBox<String> comboHour;
     @FXML
+    ComboBox comboCategory;
+    @FXML
     ImageView imcad42;
     @FXML
-    TextField nbTotalCdg;
-    @FXML
     PieChart pie;
+    @FXML
+    DatePicker maintenanceDate;
+    @FXML
+    TextField x;
+    @FXML
+    TextField y;
+    @FXML
+    TextField z;
+    @FXML
+    TextField xM;
+    @FXML
+    TextField yM;
+    @FXML
+    TextField zM;
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
@@ -63,7 +80,7 @@ public class RecapController implements Initializable {
         catch (ParseException e) {}*/
 
         System.out.println("gjgj");
-
+        comboCategory.getItems().addAll("Coup de Grue");
         comboHour.getItems().addAll("1. 8h - 10h", "2. 10h - 12h", "3. 12h - 14h");
         /*Class<?> clazz = this.getClass();
         InputStream input = clazz.getResourceAsStream("CAD.42_LOGO_RVB.png");
@@ -86,7 +103,7 @@ public class RecapController implements Initializable {
         System.out.println(localDate);
 
         String[] dateFormat = (localDate+"").split("-");
-        printDate.setText(dateFormat[2]+"/"+dateFormat[1]+"/"+dateFormat[0]);
+        fileName.setText(dateFormat[2]+"/"+dateFormat[1]+"/"+dateFormat[0]);
 
     }
 
@@ -102,7 +119,7 @@ public class RecapController implements Initializable {
         stage.setScene(scene);
         stage.show();*/
 
-        printDate.setText(selectedFile.getAbsolutePath());
+        fileName.setText(selectedFile.getAbsolutePath());
 
     }
     public void plotCDG(int start, int end) throws ParseException {
@@ -110,7 +127,7 @@ public class RecapController implements Initializable {
         XYChart.Series set1 = new XYChart.Series<>();
         ObservableList<XYChart.Data> data = FXCollections.observableArrayList();
 
-        ArrayList<Move> moves = oneByOneExample("data.csv");
+        ArrayList<Move> moves = oneByOneExample("data3.csv");
         XYChart.Series<Integer,Integer> series = new XYChart.Series<Integer, Integer>();
         series.getData().add(new XYChart.Data(Integer.toString(1), 23));
         ArrayList<LineChart.Data> list = new ArrayList<LineChart.Data>();
@@ -128,7 +145,7 @@ public class RecapController implements Initializable {
     }
 
     public void btnComboHour() throws ParseException{
-        ArrayList<Move> moves = oneByOneExample("data.csv");
+        ArrayList<Move> moves = oneByOneExample("data3.csv");
         ArrayList<Move> newListMove = new ArrayList<Move>();
         int start=-1;
         int end;
@@ -202,13 +219,29 @@ public class RecapController implements Initializable {
         //end =i;
 
         System.out.println(start + "  " + end);
-        nbTotalCdg.setText(Integer.toString(listCDG(moves,start,end).size()));
+        //nbTotalCdg.setText(Integer.toString(listCDG(moves,start,end).size()));
         plotCDG(start,end);
+
+    }
+    public void btnComboCategory(){//(Stage primaryStage)throws Exception{
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/DataGrue.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle("CDG");
+            stage.setScene(new Scene(root1));
+            stage.show();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+
+        System.out.println("rrrrr");
 
     }
 
     public void piechartFunction() throws ParseException{
-        ArrayList<Move> moves = oneByOneExample("data.csv");
+        ArrayList<Move> moves = oneByOneExample("data3.csv");
 
         double prct = Double.parseDouble(totalDurationCDG(moves,0,moves.size()-3).get(2));
         PieChart.Data s0 = new PieChart.Data("CDG " + prct , prct);
@@ -216,4 +249,34 @@ public class RecapController implements Initializable {
         pie.setData(FXCollections.observableArrayList(s0, s1));
     }
 
+    public void btnMaintenance() throws ParseException {
+        ArrayList<Move> moves = oneByOneExample("data3.csv");
+        System.out.println("aaaaaa");
+        //printDate.setText("fhgh");
+        LocalDate localDate = maintenanceDate.getValue();
+        Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+        Date date = Date.from(instant);
+        System.out.println(localDate);
+        int start = -1;
+
+        for(int i =0; i<moves.size(); i++){
+            if(date.compareTo(moves.get(i).getDate())<0){
+                start =i;
+                break;
+            }
+        }
+
+        if(start != -1) {
+            xM.setText(maximumDistanceX(moves, start, moves.size() - 3) + "");
+            yM.setText(maximumDistanceY(moves, start, moves.size() - 3) + "");
+            zM.setText(maximumDistanceZ(moves, start, moves.size() - 3) + "");
+        }
+        else{
+            xM.setText("0");
+            yM.setText("0");
+            zM.setText("0");
+        }
+
+
+    }
 }

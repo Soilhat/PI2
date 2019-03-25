@@ -9,9 +9,13 @@ import static Model.ReadExcel.oneByOneExample;
 
 public class MainTest {
     public static void main(String[] args) throws ParseException {
-        ArrayList<Move> moves = oneByOneExample("data.csv");
-        System.out.println(listCDG(moves,0,moves.size()-3).size());
-        System.out.println(totalDurationCDG(moves,0,moves.size()-3));
+        ArrayList<Move> moves = oneByOneExample("data3.csv");
+        //System.out.println(listCDG(moves,0,moves.size()-3).size());
+        //System.out.println(totalDurationCDG(moves,0,moves.size()-3));
+        System.out.println(endDay(moves));
+        System.out.println(moves.get(0));
+
+        //System.out.println(moves.get(5).getDate());
 
         //System.out.println(moves.size());
         //System.out.println(searchDown(moves,360,3000));
