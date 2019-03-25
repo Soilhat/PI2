@@ -45,7 +45,8 @@ public class ReadExcel {
                 String[] val = line.split(";");
                 //String[] nextval = br.readLine().split(";");
                 tab.add(val);
-                //m.setTime(Timestamp.valueOf(val[5]));
+                //m.setTime(new Timestamp(Long.parseLong(val[0])));
+                //System.out.println(m.getTime().getNanos());
                 m.setRadius(Integer.parseInt(val[1]));
                 m.setHeight(Integer.parseInt(val[2]));
                 m.setLoad(Integer.parseInt(val[3]));
@@ -59,6 +60,7 @@ public class ReadExcel {
                 //System.out.println(m.getStringDate());
 
                 m.setDate(date);
+                //System.out.println(m.getDate().getTime());
                 m.setX(Double.parseDouble(val[7].replace(',','.')));
                 m.setY(Double.parseDouble(val[8].replace(',','.')));
                 m.setZ(Double.parseDouble(val[9].replace(',','.')));

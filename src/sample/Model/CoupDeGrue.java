@@ -8,6 +8,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -313,4 +315,65 @@ public class CoupDeGrue  {
 
         return list;
     }
+
+    public static long duration(ArrayList<Move> moves, int start, int end){
+        long duree = moves.get(end).getDate().getTime()-moves.get(start).getDate().getTime();
+        //Timestamp t = new Timestamp(duree);
+        //String[] date = t.toString().split(" ");
+        return duree;
+    }
+
+    public static double maximumDistanceX (ArrayList<Move> moves, int start, int end){
+        double distance = 0;
+        for(int i= start; i<end ; i++){
+            distance+=Math.abs(moves.get(i).getX()-moves.get(i+1).getX());
+        }
+        BigDecimal bd = new BigDecimal(distance);
+        bd= bd.setScale(2,BigDecimal.ROUND_DOWN);
+        distance = bd.doubleValue();
+        return distance;
+    }
+    public static double maximumDistanceY (ArrayList<Move> moves, int start, int end){
+        double distance = 0;
+        for(int i= start; i<end ; i++){
+            distance+=Math.abs(moves.get(i).getY()-moves.get(i+1).getY());
+        }
+        BigDecimal bd = new BigDecimal(distance);
+        bd= bd.setScale(2,BigDecimal.ROUND_DOWN);
+        distance = bd.doubleValue();
+        return distance;
+    }
+    public static double maximumDistanceZ (ArrayList<Move> moves, int start, int end){
+        double distance = 0;
+        for(int i= start; i<end ; i++){
+            distance+=Math.abs(moves.get(i).getZ()-moves.get(i+1).getZ());
+        }
+        BigDecimal bd = new BigDecimal(distance);
+        bd= bd.setScale(2,BigDecimal.ROUND_DOWN);
+        distance = bd.doubleValue();
+        return distance;
+    }
+    public static int maximumAngle (ArrayList<Move> moves, int start, int end){
+        int distance = 0;
+        for(int i= start; i<end ; i++){
+            distance+=Math.abs(moves.get(i).getAngle()-moves.get(i+1).getAngle());
+        }
+        return distance;
+    }
+
+    public static String totalDurationCDG(ArrayList<Move> moves, int start, int end){
+        ArrayList<ArrayList<Integer>> listCDG = listCDG(moves,start,end);
+        String total ="";
+        long duree =0;
+
+        for (ArrayList<Integer> cdg : listCDG){
+            duree += duration(moves,cdg.get(0),cdg.get(1));
+            //System.out.println(duree);
+        }
+        Timestamp t = new Timestamp(duree);
+        String[] date = t.toString().split(" ");
+        return date[1];
+    }
+
+
 }

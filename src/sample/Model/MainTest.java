@@ -1,5 +1,6 @@
 package Model;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -9,6 +10,9 @@ import static Model.ReadExcel.oneByOneExample;
 public class MainTest {
     public static void main(String[] args) throws ParseException {
         ArrayList<Move> moves = oneByOneExample("data.csv");
+        System.out.println(listCDG(moves,0,moves.size()-3).size());
+        System.out.println(totalDurationCDG(moves,0,moves.size()-3));
+
         //System.out.println(moves.size());
         //System.out.println(searchDown(moves,360,3000));
         //System.out.println(findNextMove(moves,417,3000));
@@ -26,7 +30,7 @@ public class MainTest {
         System.out.println(searchUp(moves,endDown,3000));
         System.out.println(findNextMove(moves,endDown,3000));*/
         //System.out.println(searchCDG(moves,49378,50000));
-        System.out.println(listCDG(moves,0,50000).size());
+        //System.out.println(listCDG(moves,0,50000).size());
 
         //System.out.println(moves.get(3).getDate());
         //System.out.println(moves.get(4).getDate());

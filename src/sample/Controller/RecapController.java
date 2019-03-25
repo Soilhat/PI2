@@ -5,9 +5,7 @@ import Model.ReadExcel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
@@ -35,8 +33,7 @@ import java.util.ResourceBundle;
 import static Model.CoupDeGrue.listCDG;
 import static Model.ReadExcel.oneByOneExample;
 
-
-public class DataGrueController  implements Initializable {
+public class RecapController implements Initializable {
     @FXML
     DatePicker datePicker;
     @FXML
@@ -51,8 +48,6 @@ public class DataGrueController  implements Initializable {
     ImageView imcad42;
     @FXML
     TextField nbTotalCdg;
-    @FXML
-    ComboBox comboCategory;
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
@@ -64,8 +59,6 @@ public class DataGrueController  implements Initializable {
         catch (ParseException e) {}*/
 
         System.out.println("gjgj");
-
-        comboCategory.getItems().addAll("recap");
 
         comboHour.getItems().addAll("1. 8h - 10h", "2. 10h - 12h", "3. 12h - 14h");
         /*Class<?> clazz = this.getClass();
@@ -197,30 +190,11 @@ public class DataGrueController  implements Initializable {
 
         }
 
-
-
         //end =i;
 
         System.out.println(start + "  " + end);
         nbTotalCdg.setText(Integer.toString(listCDG(moves,start,end).size()));
         plotCDG(start,end);
-
-    }
-
-    public void btnComboCategory(){//(Stage primaryStage)throws Exception{
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Recap.fxml"));
-            Parent root1 = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setTitle("RECAP");
-            stage.setScene(new Scene(root1));
-            stage.show();
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-
-
-        System.out.println("rrrrr");
 
     }
 
