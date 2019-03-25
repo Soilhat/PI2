@@ -27,7 +27,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/DataGrue.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/littlemove.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("/littlemove.fxml"));
         primaryStage.setTitle("Hello World");
         FileChooser fileChooser = new FileChooser();
         /*fileChooser.setTitle("Open Resource File");
