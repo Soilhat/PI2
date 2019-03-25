@@ -62,6 +62,8 @@ public class Main extends Application {
             //Recupère et calcule la durée des petits mouvements
             List<MoveDuration> stats = littleMoveService.littleMoveDuration(threshold);
 
+            System.out.println("Petits mouvemements trouvés");
+            stats.forEach(System.out::println);
             //Calcule la durée totale des petits mouvements (via la fonction sum() de l'api Stream
             String totalDurationString = littleMoveService.littleMoveTotalDurationFormatted(stats);
             System.out.println("Durée total des petits mouvements : " + totalDurationString);
@@ -69,7 +71,7 @@ public class Main extends Application {
 
         //Calcule la durée moyenne des petits mouvements (via la fonction average() de l'api Stream
         String averageDurationString = littleMoveService.littleMoveAverageFormatted(stats);
-        System.out.println("Durée total des petits mouvements : " + averageDurationString);
+        System.out.println("Durée moyenne des petits mouvements : " + averageDurationString);
 
         //Recupère la plus longure periode pendant laquelle il n'y a eu que des petits mouvements
             // via la fonction max() de l'api stream

@@ -7,6 +7,8 @@ public class MoveDuration
     private Double height;
     private Long start;
     private Long end;
+    private Double minHeight;
+    private Double maxHeight;
 
     public Double getHeight() {
         return height;
@@ -37,12 +39,29 @@ public class MoveDuration
         return end - start;
     }
 
+    public Double getMinHeight() {
+        return minHeight;
+    }
+
+    public void setMinHeight(Double minHeight) {
+        this.minHeight = minHeight;
+    }
+
+    public Double getMaxHeight() {
+        return maxHeight;
+    }
+
+    public void setMaxHeight(Double maxHeight) {
+        this.maxHeight = maxHeight;
+    }
+
     @Override
     public String toString() {
         return "MoveDuration{" +
-                "height=" + height +
-                ", start=" + new Date(start) +
-                ", end=" + new Date(end) +
+                ", start=" + start +
+                ", end=" + end +
+                ", minHeight=" + minHeight +
+                ", maxHeight=" + maxHeight +
                 '}';
     }
 }

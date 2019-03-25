@@ -44,6 +44,8 @@ public class LittleMoveServiceImpl implements LittleMoveService
         MoveDuration duration = new MoveDuration();
         duration.setStart(moves.get(0).getTime().getTime());
         duration.setHeight(height);
+        duration.setMinHeight(height);
+        duration.setMaxHeight(height);
         duration.setEnd(moves.get(0).getTime().getTime());
         for (Move move : moves)
         {
@@ -52,12 +54,16 @@ public class LittleMoveServiceImpl implements LittleMoveService
             if (Math.abs(actualHeight-height) < threshold)
             {
                 duration.setEnd(move.getTime().getTime());
+                duration.setMinHeight(Math.min(duration.getMinHeight(),actualHeight));
+                duration.setMaxHeight(Math.max(duration.getMaxHeight(),actualHeight));
             }
             else
             {
                 moveDurations.add(duration);
                 duration = new MoveDuration();
                 duration.setHeight(actualHeight);
+                duration.setMinHeight(actualHeight);
+                duration.setMaxHeight(actualHeight);
                 duration.setStart(move.getTime().getTime());
                 duration.setEnd(move.getTime().getTime());
                 height = actualHeight;
@@ -109,9 +115,12 @@ public class LittleMoveServiceImpl implements LittleMoveService
 
     @Override
     public MoveListWrapper splitData(Integer threshold) {
+
         MoveListWrapper wrapper = new MoveListWrapper();
         List<Move> littleMoves = new ArrayList<>();
         List<Move> normalMoves = new ArrayList<>();
+
+        List<MoveDuration> durations = littleMoveDuration(threshold);
 
         List<Move> moves ;
         try
@@ -125,21 +134,24 @@ public class LittleMoveServiceImpl implements LittleMoveService
 
         double height = threshold*(-1);
 
-        for (Move move : moves)
+        Iterator<MoveDuration> durationIterator = durations.iterator();
+        Iterator<Move> moveIterator = moves.iterator();
+
+        MoveDuration actualDuration = durationIterator.next();
+
+        while(moveIterator.hasNext())
         {
-
-            double actualHeight= move.getHeight();
-
-            if (Math.abs(actualHeight-height) < threshold) {
+            Move move = moveIterator.next();
+            if (move.getTime().getTime() >= actualDuration.getStart() && move.getTime().getTime() <= actualDuration.getEnd())
                 littleMoves.add(move);
-            }
             else
-            {
                 normalMoves.add(move);
-            }
-            height = actualHeight;
+
+            if (move.getTime().getTime() > actualDuration.getEnd() && durationIterator.hasNext())
+                actualDuration = durationIterator.next();
 
         }
+
         wrapper.setLittleMoves(littleMoves);
         wrapper.setNormalMoves(normalMoves);
         return wrapper;
