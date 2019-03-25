@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -31,6 +32,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import static Model.CoupDeGrue.listCDG;
+import static Model.CoupDeGrue.totalDurationCDG;
 import static Model.ReadExcel.oneByOneExample;
 
 public class RecapController implements Initializable {
@@ -48,6 +50,8 @@ public class RecapController implements Initializable {
     ImageView imcad42;
     @FXML
     TextField nbTotalCdg;
+    @FXML
+    PieChart pie;
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
@@ -65,6 +69,11 @@ public class RecapController implements Initializable {
         InputStream input = clazz.getResourceAsStream("CAD.42_LOGO_RVB.png");
         Image image = new Image(input);
         imcad42= new ImageView(image);*/
+        try {
+            piechartFunction();
+        }
+        catch (ParseException e){e.printStackTrace();}
+
 
 
     }
@@ -198,6 +207,13 @@ public class RecapController implements Initializable {
 
     }
 
+    public void piechartFunction() throws ParseException{
+        ArrayList<Move> moves = oneByOneExample("data.csv");
 
+        double prct = Double.parseDouble(totalDurationCDG(moves,0,moves.size()-3).get(2));
+        PieChart.Data s0 = new PieChart.Data("CDG " + prct , prct);
+        PieChart.Data s1 = new PieChart.Data("Autre", 46);
+        pie.setData(FXCollections.observableArrayList(s0, s1));
+    }
 
 }

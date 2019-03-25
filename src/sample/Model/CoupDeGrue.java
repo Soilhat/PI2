@@ -361,8 +361,12 @@ public class CoupDeGrue  {
         return distance;
     }
 
-    public static String totalDurationCDG(ArrayList<Move> moves, int start, int end){
+    public static ArrayList<String> totalDurationCDG(ArrayList<Move> moves, int start, int end){
         ArrayList<ArrayList<Integer>> listCDG = listCDG(moves,start,end);
+        ArrayList<String> timeStampAndDuration = new ArrayList<String>();
+        timeStampAndDuration.add("");
+        timeStampAndDuration.add("");
+        timeStampAndDuration.add("");
         String total ="";
         long duree =0;
 
@@ -372,8 +376,16 @@ public class CoupDeGrue  {
         }
         Timestamp t = new Timestamp(duree);
         String[] date = t.toString().split(" ");
-        return date[1];
+        double prct = duree/864000;  // on divise par 24h
+        timeStampAndDuration.set(0,duree+"");
+        timeStampAndDuration.set(1,date[1]);
+        timeStampAndDuration.set(2,prct+"");
+
+        //System.out.println(prct+ " %");
+        return timeStampAndDuration;
     }
+
+
 
 
 }
