@@ -46,8 +46,6 @@ public class RecapController implements Initializable {
     @FXML
     LineChart cdg;
     @FXML
-    ComboBox<String> comboHour;
-    @FXML
     ComboBox comboCategory;
     @FXML
     ImageView imcad42;
@@ -67,6 +65,12 @@ public class RecapController implements Initializable {
     TextField yM;
     @FXML
     TextField zM;
+    @FXML
+    TextField startDay;
+    @FXML
+    TextField endDay;
+    Date startDate;
+    ArrayList<Move> goodMoves = new ArrayList<Move>();
 
 
 
@@ -80,8 +84,8 @@ public class RecapController implements Initializable {
         catch (ParseException e) {}*/
 
         System.out.println("gjgj");
+
         comboCategory.getItems().addAll("Coup de Grue");
-        comboHour.getItems().addAll("1. 8h - 10h", "2. 10h - 12h", "3. 12h - 14h");
         /*Class<?> clazz = this.getClass();
         InputStream input = clazz.getResourceAsStream("CAD.42_LOGO_RVB.png");
         Image image = new Image(input);
@@ -94,21 +98,40 @@ public class RecapController implements Initializable {
 
 
     }
-    public void actionDate(){
+    public void actionDate() throws ParseException{
         System.out.println("aaaaaa");
+        ArrayList<Move> moves = oneByOneExample("data3.csv");
         //printDate.setText("fhgh");
         LocalDate localDate = datePicker.getValue();
         Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
         Date date = Date.from(instant);
-        System.out.println(localDate);
+        System.out.println("date " + date);
 
         String[] dateFormat = (localDate+"").split("-");
         fileName.setText(dateFormat[2]+"/"+dateFormat[1]+"/"+dateFormat[0]);
 
+        startDate = date;
+        for (int i = 0; i<=moves.size()-3; i++){
+            System.out.println("ccccc");
+            if(moves.get(i).getDate().getTime()>= date.getTime()) {
+                System.out.println("hhhhh");
+                goodMoves.add(moves.get(i));
+            }
+        }
+        System.out.println(goodMoves.size());
+        x.setText(maximumDistanceX(moves, 0, moves.size()-3 )+"");
+        y.setText(maximumDistanceY(moves, 0, moves.size()-3)+ "");
+        z.setText(maximumDistanceZ(moves, 0, moves.size()-3)+ "");
+
+        startDay.setText(getHour(moves.get(0).getDate().getTime()));
+        endDay.setText(endOfDay(moves).get(0));
+
+
     }
 
-    public void chooseFile(){
+    public void chooseFile() throws ParseException{
         FileChooser fileChooser = new FileChooser();
+        ArrayList<Move> moves = oneByOneExample("data3.csv");
 
         Stage stage = new Stage();
         File selectedFile = fileChooser.showOpenDialog(stage);
@@ -121,108 +144,10 @@ public class RecapController implements Initializable {
 
         fileName.setText(selectedFile.getAbsolutePath());
 
-    }
-    public void plotCDG(int start, int end) throws ParseException {
-
-        XYChart.Series set1 = new XYChart.Series<>();
-        ObservableList<XYChart.Data> data = FXCollections.observableArrayList();
-
-        ArrayList<Move> moves = oneByOneExample("data3.csv");
-        XYChart.Series<Integer,Integer> series = new XYChart.Series<Integer, Integer>();
-        series.getData().add(new XYChart.Data(Integer.toString(1), 23));
-        ArrayList<LineChart.Data> list = new ArrayList<LineChart.Data>();
-
-        cdg.setCreateSymbols(false);
-
-        for(int i=start; i<=end; i++){
-            //series.getData().add(new XYChart.Data(i,moves.get(i).getHeight()));
-            data.add(new XYChart.Data(Integer.toString(i),moves.get(i).getHeight()));
-
-        }
-        set1.setData(data);
-        if(set1 != null)cdg.setData(FXCollections.observableArrayList(set1));
 
     }
 
-    public void btnComboHour() throws ParseException{
-        ArrayList<Move> moves = oneByOneExample("data3.csv");
-        ArrayList<Move> newListMove = new ArrayList<Move>();
-        int start=-1;
-        int end;
-        System.out.println("hhhhhh");
-        String[] comboText = comboHour.getSelectionModel().getSelectedItem().split(" ");
-        //String heure = comboText[0];
-        for (int i =0; i< moves.size(); i++){
-            String[] date= moves.get(i).getDate().toString().split(" ");
-            String[] heure = date[3].split(":");
-            //System.out.println(comboText[0]);
-            if(comboText[0].equals("1.")) {
-                //System.out.println(heure[0]);
-                if (heure[0].equals("08") || heure[0].equals("09")) {
-                    start = i;
-                    break;
 
-                }
-            }
-            if(comboText[0].equals("2.")) {
-                //System.out.println(heure[0]);
-                if (heure[0].equals("10") || heure[0].equals("11")) {
-                    start = i;
-                    break;
-
-                }
-            }
-            if(comboText[0].equals("3.")) {
-                //System.out.println(heure[0]);
-                if (heure[0].equals("12") || heure[0].equals("13")) {
-                    start = i;
-                    break;
-
-                }
-            }
-
-        }
-        end = start;
-        for (int i =start; i< moves.size(); i++){
-            String[] date= moves.get(i).getDate().toString().split(" ");
-            String[] heure = date[3].split(":");
-            if(comboText[0].equals("1.")) {
-                //System.out.println(heure[0]);
-                if (heure[0].equals("08") || heure[0].equals("09")) {
-                    //end = i;
-                    end ++;
-                    newListMove.add(moves.get(i));
-
-                }
-            }
-            if(comboText[0].equals("2.")) {
-                //System.out.println(heure[0]);
-                if (heure[0].equals("10")){ //|| heure[0].equals("11")) {
-                    end ++;
-                    newListMove.add(moves.get(i));
-
-                }
-            }
-            if(comboText[0].equals("3.")) {
-                //System.out.println(heure[0]);
-                //System.out.println("bbbbb");
-                if (heure[0].equals("12")){ //|| heure[0].equals("13")) {
-                    //System.out.println("aaaaa");
-                    end ++;
-                    newListMove.add(moves.get(i));
-
-                }
-            }
-
-        }
-
-        //end =i;
-
-        System.out.println(start + "  " + end);
-        //nbTotalCdg.setText(Integer.toString(listCDG(moves,start,end).size()));
-        plotCDG(start,end);
-
-    }
     public void btnComboCategory(){//(Stage primaryStage)throws Exception{
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/DataGrue.fxml"));
@@ -244,9 +169,10 @@ public class RecapController implements Initializable {
         ArrayList<Move> moves = oneByOneExample("data3.csv");
 
         double prct = Double.parseDouble(totalDurationCDG(moves,0,moves.size()-3).get(2));
-        PieChart.Data s0 = new PieChart.Data("CDG " + prct , prct);
-        PieChart.Data s1 = new PieChart.Data("Autre", 46);
+        PieChart.Data s0 = new PieChart.Data("CDG " + prct +" %" , prct);
+        PieChart.Data s1 = new PieChart.Data("Autre " + (100-prct) + " %", 100-prct);
         pie.setData(FXCollections.observableArrayList(s0, s1));
+        pie.setTitle("repartition des utilisations de la grue");
     }
 
     public void btnMaintenance() throws ParseException {

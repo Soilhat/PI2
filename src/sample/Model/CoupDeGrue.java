@@ -328,30 +328,30 @@ public class CoupDeGrue  {
         for(int i= start; i<end ; i++){
             distance+=Math.abs(moves.get(i).getX()-moves.get(i+1).getX());
         }
-        BigDecimal bd = new BigDecimal(distance);
+        BigDecimal bd = new BigDecimal(distance/10);
         bd= bd.setScale(2,BigDecimal.ROUND_DOWN);
         distance = bd.doubleValue();
-        return distance/10;
+        return distance;
     }
     public static double maximumDistanceY (ArrayList<Move> moves, int start, int end){
         double distance = 0;
         for(int i= start; i<end ; i++){
             distance+=Math.abs(moves.get(i).getY()-moves.get(i+1).getY());
         }
-        BigDecimal bd = new BigDecimal(distance);
+        BigDecimal bd = new BigDecimal(distance/10);
         bd= bd.setScale(2,BigDecimal.ROUND_DOWN);
         distance = bd.doubleValue();
-        return distance/10;
+        return distance;
     }
     public static double maximumDistanceZ (ArrayList<Move> moves, int start, int end){
         double distance = 0;
         for(int i= start; i<end ; i++){
             distance+=Math.abs(moves.get(i).getZ()-moves.get(i+1).getZ());
         }
-        BigDecimal bd = new BigDecimal(distance);
+        BigDecimal bd = new BigDecimal(distance/10);
         bd= bd.setScale(2,BigDecimal.ROUND_DOWN);
         distance = bd.doubleValue();
-        return distance/10;
+        return distance;
     }
     public static int maximumAngle (ArrayList<Move> moves, int start, int end){
         int distance = 0;
@@ -385,8 +385,17 @@ public class CoupDeGrue  {
         return timeStampAndDuration;
     }
 
-    public static String endDay(ArrayList<Move> moves){
+    public static String getHour(long timeStamp){
+        Timestamp t = new Timestamp(timeStamp);
+        String[] date = t.toString().split(" ");
+        return date[1];
+    }
+
+    public static ArrayList<String> endOfDay(ArrayList<Move> moves){
         //String end ="";
+        ArrayList<String> endDayElement = new ArrayList<String>();
+        endDayElement.add("");
+        endDayElement.add("");
         int end = -1;
         for(int i =0; i<moves.size()-3; i++){
             if(moves.get(i+1).getDate().getTime()-moves.get(i).getDate().getTime()>inactivityThreshold){
@@ -397,7 +406,9 @@ public class CoupDeGrue  {
         long duree = moves.get(end).getDate().getTime();
         Timestamp t = new Timestamp(duree);
         String[] date = t.toString().split(" ");
-        return date[1];
+        endDayElement.set(0,date[1]);
+        endDayElement.set(1,end+"");
+        return endDayElement;
 
     }
 

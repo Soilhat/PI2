@@ -12,7 +12,7 @@ public class MainTest {
         ArrayList<Move> moves = oneByOneExample("data3.csv");
         //System.out.println(listCDG(moves,0,moves.size()-3).size());
         //System.out.println(totalDurationCDG(moves,0,moves.size()-3));
-        System.out.println(endDay(moves));
+        //System.out.println(endDay(moves));
         System.out.println(moves.get(0));
 
         //System.out.println(moves.get(5).getDate());
