@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.RecapController">
+   <children>
+      <DatePicker id="datePicker" fx:id="datePicker" layoutX="38.0" layoutY="139.0" prefHeight="25.0" prefWidth="195.0" promptText="Choose a date" />
+      <TextField id="printDate" fx:id="fileName" layoutX="560.0" layoutY="52.0" prefHeight="25.0" prefWidth="324.0" promptText="name of the file" />
+      <Button id="btnDate" layoutX="259.0" layoutY="139.0" mnemonicParsing="false" onAction="#actionDate" prefHeight="25.0" prefWidth="72.0" text="Ok" />
+      <Button fx:id="btnFile" layoutX="318.0" layoutY="52.0" mnemonicParsing="false" onAction="#chooseFile" prefHeight="25.0" prefWidth="101.0" text="Choose a file" />
+      <ComboBox fx:id="comboCategory" layoutX="26.0" layoutY="14.0" onAction="#btnComboCategory" prefHeight="25.0" prefWidth="220.0" promptText="Choose a category" />
+      <Text layoutX="38.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="distance z parcourue" wrappingWidth="162.96680569648743" />
+      <Text layoutX="38.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="distance x parcourue" wrappingWidth="129.13671875" />
+      <Text layoutX="38.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="distance y parcourue" wrappingWidth="119.13671875" />
+      <TextField fx:id="zM" layoutX="261.0" layoutY="432.0" prefHeight="25.0" prefWidth="72.0" />
+      <TextField layoutX="252.0" layoutY="258.0" prefHeight="25.0" prefWidth="72.0" fx:id="x" />
+      <TextField fx:id="y" layoutX="253.0" layoutY="296.0" prefHeight="25.0" prefWidth="72.0" />
+      <Text layoutX="431.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom du fichier Excel :" wrappingWidth="129.13671731948853" />
+      <ImageView fx:id="imcad42" fitHeight="117.0" fitWidth="151.0" layoutX="932.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../DataGrue/src/ressources/CAD.42_LOGO_RVB.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="82.0" fitWidth="203.0" layoutX="1165.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../DataGrue/src/ressources/logo_esilv_png_couleur.png" />
+         </image>
+      </ImageView>
+      <PieChart fx:id="pie" layoutX="566.0" layoutY="127.0" prefHeight="249.0" prefWidth="354.0" />
+      <DatePicker fx:id="maintenanceDate" layoutX="40.0" layoutY="387.0" prefHeight="25.0" prefWidth="195.0" />
+      <Button layoutX="262.0" layoutY="387.0" mnemonicParsing="false" onAction="#btnMaintenance" prefHeight="25.0" prefWidth="72.0" text="Ok" />
+      <Text layoutX="46.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="distance z parcourue" wrappingWidth="129.13671731948853" />
+      <Text layoutX="46.0" layoutY="486.0" strokeType="OUTSIDE" strokeWidth="0.0" text="distance x parcourue" wrappingWidth="129.13671875" />
+      <Text layoutX="46.0" layoutY="522.0" strokeType="OUTSIDE" strokeWidth="0.0" text="distance y parcourue" wrappingWidth="119.13671875" />
+      <TextField fx:id="z" layoutX="253.0" layoutY="226.0" prefHeight="25.0" prefWidth="72.0" />
+      <TextField fx:id="yM" layoutX="260.0" layoutY="505.0" prefHeight="25.0" prefWidth="72.0" />
+      <TextField layoutX="260.0" layoutY="469.0" prefHeight="25.0" prefWidth="72.0" fx:id="xM" />
+      <Text layoutX="335.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="m" wrappingWidth="18.3359375">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="335.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="m" wrappingWidth="18.3359375">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="335.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="m" wrappingWidth="18.3359375">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="343.0" layoutY="450.0" strokeType="OUTSIDE" strokeWidth="0.0" text="m" wrappingWidth="18.3359375">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="343.0" layoutY="487.0" strokeType="OUTSIDE" strokeWidth="0.0" text="m" wrappingWidth="18.3359375">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="343.0" layoutY="522.0" strokeType="OUTSIDE" strokeWidth="0.0" text="m" wrappingWidth="18.3359375">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="108.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Après maintenance :">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="484.0" layoutY="473.0" strokeType="OUTSIDE" strokeWidth="0.0" text="La journée a commencé à :" wrappingWidth="151.00001394748688" />
+      <TextField fx:id="startDay" layoutX="635.0" layoutY="456.0" prefHeight="25.0" prefWidth="108.0" />
+      <Text layoutX="757.0" layoutY="473.0" strokeType="OUTSIDE" strokeWidth="0.0" text="et s'est achevé à :" wrappingWidth="119.13673877716064" />
+      <TextField fx:id="endDay" layoutX="857.0" layoutY="456.0" prefHeight="25.0" prefWidth="119.0" />
+   </children>
+</AnchorPane>

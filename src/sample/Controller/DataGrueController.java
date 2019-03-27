@@ -67,24 +67,17 @@ public class DataGrueController  implements Initializable {
     @FXML
     TextField tpsMoyenCdg;
 
+    Date startDate;
+    ArrayList<Move> goodMoves = new ArrayList<Move>();
+
     @Override
     public void initialize(URL location, ResourceBundle resources){
-
-        /*try {
-            plotCDG();
-
-        }
-        catch (ParseException e) {}*/
-
         System.out.println("gjgj");
 
         comboCategory.getItems().addAll("recap");
 
         comboHour.getItems().addAll("1. 8h - 9h", "2. 10h - 11h", "3. 12h - 13h","4. 14h - 15h", "5. 16h - 17h", "6. 18h - 19h");
-        /*Class<?> clazz = this.getClass();
-        InputStream input = clazz.getResourceAsStream("CAD.42_LOGO_RVB.png");
-        Image image = new Image(input);
-        imcad42= new ImageView(image);*/
+
         cdg.setTitle("deplacement vertical de la grue en fonction du temps");
         cdg.getXAxis().setLabel("temps");
         cdg.getYAxis().setLabel("hauteur en dm");
@@ -95,49 +88,46 @@ public class DataGrueController  implements Initializable {
 
 
     }
-    public void actionDate(){
-        System.out.println("aaaaaa");
-        //printDate.setText("fhgh");
-        LocalDate localDate = datePicker.getValue();
-        Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
-        Date date = Date.from(instant);
-        System.out.println(localDate);
-
-        String[] dateFormat = (localDate+"").split("-");
-        //printDate.setText(dateFormat[2]+"/"+dateFormat[1]+"/"+dateFormat[0]);
-
-    }
-
     public void chooseFile(){
         FileChooser fileChooser = new FileChooser();
 
         Stage stage = new Stage();
         File selectedFile = fileChooser.showOpenDialog(stage);
-        /*VBox vBox = new VBox(button);
-        Scene scene = new Scene(vBox, 960, 600);
-
-
-        stage.setScene(scene);
-        stage.show();*/
-
         fileName.setText(selectedFile.getName());
 
     }
+    public void actionDate() throws  ParseException{
+        LocalDate localDate = datePicker.getValue();
+        Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+        Date date = Date.from(instant);
+        System.out.println(localDate);
+
+        ArrayList<Move> moves = oneByOneExample(fileName.getText());
+
+        String[] dateFormat = (localDate+"").split("-");
+        startDate = date;
+        for (int i = 0; i<=moves.size()-3; i++){
+            System.out.println("ccccc");
+            if(moves.get(i).getDate().getTime()>= date.getTime()) {
+                System.out.println("hhhhh");
+                goodMoves.add(moves.get(i));
+            }
+        }
+
+    }
+
+
     public void plotCDG(int start, int end) throws ParseException {
 
         XYChart.Series set1 = new XYChart.Series<>();
         ObservableList<XYChart.Data> data = FXCollections.observableArrayList();
 
-        ArrayList<Move> moves = oneByOneExample("data3.csv");
-        XYChart.Series<Integer,Integer> series = new XYChart.Series<Integer, Integer>();
-        //series.getData().add(new XYChart.Data(Integer.toString(1), 23));
-        ArrayList<LineChart.Data> list = new ArrayList<LineChart.Data>();
-
+        //ArrayList<Move> moves = oneByOneExample("data3.csv");
+        ArrayList<Move> moves = goodMoves;
         cdg.setCreateSymbols(false);
         long duree;
 
         for(int i=start; i<=end; i++){
-            //series.getData().add(new XYChart.Data(i,moves.get(i).getHeight()));
             duree = moves.get(i).getDate().getTime();
             Timestamp t = new Timestamp(duree);
             String[] date = t.toString().split(" ");
@@ -157,16 +147,15 @@ public class DataGrueController  implements Initializable {
         XYChart.Series set1 = new XYChart.Series<>();
         ObservableList<XYChart.Data> data = FXCollections.observableArrayList();
 
-        ArrayList<Move> moves = oneByOneExample("data3.csv");
+        ArrayList<Move> moves = goodMoves;
         XYChart.Series<Integer,Integer> series = new XYChart.Series<Integer, Integer>();
-        //series.getData().add(new XYChart.Data(Integer.toString(1), 23));
         ArrayList<LineChart.Data> list = new ArrayList<LineChart.Data>();
 
         yFx.setCreateSymbols(false);
         long duree;
 
         for(int i=start; i<=end; i++){
-            //series.getData().add(new XYChart.Data(i,moves.get(i).getHeight()));
+
             duree = moves.get(i).getDate().getTime();
             Timestamp t = new Timestamp(duree);
             String[] date = t.toString().split(" ");
@@ -181,19 +170,16 @@ public class DataGrueController  implements Initializable {
 
 
     public void btnComboHour() throws ParseException{
-        ArrayList<Move> moves = oneByOneExample("data3.csv");
+        ArrayList<Move> moves = goodMoves;
         ArrayList<Move> newListMove = new ArrayList<Move>();
         int start=-1;
         int end;
         System.out.println("hhhhhh");
         String[] comboText = comboHour.getSelectionModel().getSelectedItem().split(" ");
-        //String heure = comboText[0];
         for (int i =0; i< moves.size(); i++){
             String[] date= moves.get(i).getDate().toString().split(" ");
             String[] heure = date[3].split(":");
-            //System.out.println(comboText[0]);
             if(comboText[0].equals("1.")) {
-                //System.out.println(heure[0]);
                 if (heure[0].equals("08") || heure[0].equals("09")) {
                     start = i;
                     break;
@@ -201,7 +187,6 @@ public class DataGrueController  implements Initializable {
                 }
             }
             if(comboText[0].equals("2.")) {
-                //System.out.println(heure[0]);
                 if (heure[0].equals("10") || heure[0].equals("11")) {
                     start = i;
                     break;
@@ -209,7 +194,6 @@ public class DataGrueController  implements Initializable {
                 }
             }
             if(comboText[0].equals("3.")) {
-                //System.out.println(heure[0]);
                 if (heure[0].equals("12") || heure[0].equals("13")) {
                     start = i;
                     break;
@@ -223,7 +207,6 @@ public class DataGrueController  implements Initializable {
             String[] date= moves.get(i).getDate().toString().split(" ");
             String[] heure = date[3].split(":");
             if(comboText[0].equals("1.")) {
-                //System.out.println(heure[0]);
                 if (heure[0].equals("08") || heure[0].equals("09")) {
                     //end = i;
                     end ++;
@@ -232,7 +215,6 @@ public class DataGrueController  implements Initializable {
                 }
             }
             if(comboText[0].equals("2.")) {
-                //System.out.println(heure[0]);
                 if (heure[0].equals("10") || heure[0].equals("11")) {
                     end ++;
                     newListMove.add(moves.get(i));
@@ -240,10 +222,7 @@ public class DataGrueController  implements Initializable {
                 }
             }
             if(comboText[0].equals("3.")) {
-                //System.out.println(heure[0]);
-                //System.out.println("bbbbb");
                 if (heure[0].equals("12")|| heure[0].equals("13")) {
-                    //System.out.println("aaaaa");
                     end ++;
                     newListMove.add(moves.get(i));
 
@@ -269,7 +248,7 @@ public class DataGrueController  implements Initializable {
 
     }
 
-    public void btnComboCategory(){//(Stage primaryStage)throws Exception{
+    public void btnComboCategory(){
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Recap.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();

@@ -77,19 +77,10 @@ public class RecapController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources){
 
-        /*try {
-            plotCDG();
-
-        }
-        catch (ParseException e) {}*/
-
         System.out.println("gjgj");
 
         comboCategory.getItems().addAll("Coup de Grue");
-        /*Class<?> clazz = this.getClass();
-        InputStream input = clazz.getResourceAsStream("CAD.42_LOGO_RVB.png");
-        Image image = new Image(input);
-        imcad42= new ImageView(image);*/
+
         try {
             piechartFunction();
         }
@@ -135,12 +126,6 @@ public class RecapController implements Initializable {
 
         Stage stage = new Stage();
         File selectedFile = fileChooser.showOpenDialog(stage);
-        /*VBox vBox = new VBox(button);
-        Scene scene = new Scene(vBox, 960, 600);
-
-
-        stage.setScene(scene);
-        stage.show();*/
 
         fileName.setText(selectedFile.getAbsolutePath());
 
@@ -148,7 +133,7 @@ public class RecapController implements Initializable {
     }
 
 
-    public void btnComboCategory(){//(Stage primaryStage)throws Exception{
+    public void btnComboCategory(){
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/DataGrue.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
