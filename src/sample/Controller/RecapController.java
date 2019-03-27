@@ -89,10 +89,18 @@ public class RecapController implements Initializable {
 
 
     }
+
+
+    public void chooseFile(){
+        FileChooser fileChooser = new FileChooser();
+
+        Stage stage = new Stage();
+        File selectedFile = fileChooser.showOpenDialog(stage);
+        fileName.setText(selectedFile.getName());
+
+    }
     public void actionDate() throws ParseException{
-        System.out.println("aaaaaa");
         ArrayList<Move> moves = oneByOneExample("data3.csv");
-        //printDate.setText("fhgh");
         LocalDate localDate = datePicker.getValue();
         Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
         Date date = Date.from(instant);
@@ -103,9 +111,7 @@ public class RecapController implements Initializable {
 
         startDate = date;
         for (int i = 0; i<=moves.size()-3; i++){
-            System.out.println("ccccc");
             if(moves.get(i).getDate().getTime()>= date.getTime()) {
-                System.out.println("hhhhh");
                 goodMoves.add(moves.get(i));
             }
         }
@@ -116,21 +122,11 @@ public class RecapController implements Initializable {
 
         startDay.setText(getHour(moves.get(0).getDate().getTime()));
         endDay.setText(endOfDay(moves).get(0));
-
-
-    }
-
-    public void chooseFile() throws ParseException{
-        FileChooser fileChooser = new FileChooser();
-        ArrayList<Move> moves = oneByOneExample("data3.csv");
-
-        Stage stage = new Stage();
-        File selectedFile = fileChooser.showOpenDialog(stage);
-
-        fileName.setText(selectedFile.getAbsolutePath());
-
+        piechartFunction();
 
     }
+
+
 
 
     public void btnComboCategory(){
@@ -138,7 +134,7 @@ public class RecapController implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/DataGrue.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
-            stage.setTitle("CDG");
+            stage.setTitle("Coup de grue");
             stage.setScene(new Scene(root1));
             stage.show();
         } catch(Exception e) {
@@ -151,7 +147,7 @@ public class RecapController implements Initializable {
     }
 
     public void piechartFunction() throws ParseException{
-        ArrayList<Move> moves = oneByOneExample("data3.csv");
+        ArrayList<Move> moves = goodMoves;
 
         double prct = Double.parseDouble(totalDurationCDG(moves,0,moves.size()-3).get(2));
         PieChart.Data s0 = new PieChart.Data("CDG " + prct +" %" , prct);
@@ -161,7 +157,7 @@ public class RecapController implements Initializable {
     }
 
     public void btnMaintenance() throws ParseException {
-        ArrayList<Move> moves = oneByOneExample("data3.csv");
+        ArrayList<Move> moves = goodMoves;
         System.out.println("aaaaaa");
         //printDate.setText("fhgh");
         LocalDate localDate = maintenanceDate.getValue();

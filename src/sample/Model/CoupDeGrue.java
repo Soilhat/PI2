@@ -1,26 +1,17 @@
 package Model;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-//import service.LittleMoveService;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+
 
 public class CoupDeGrue  {
 
     static long inactivityThreshold = 600000; //1h40mn
-    //public LoadData data;
 
-    static int erreur = 2;
+    static int erreur = 2; // en dm. C'est l'erreur autour de laquelle on ne considère pas que la grue s'est déplacée
 
     public static ArrayList<Integer> up (ArrayList<Move> moves,int start, int end){
         int row = start;
@@ -328,7 +319,7 @@ public class CoupDeGrue  {
         return date[1];
     }
 
-    public static ArrayList<String> endOfDay(ArrayList<Move> moves){
+    public static ArrayList<String> endOfDay(ArrayList<Move> moves){ // on cherche la date et l'heure du dernier déplacement
         //String end ="";
         ArrayList<String> endDayElement = new ArrayList<String>();
         endDayElement.add("");

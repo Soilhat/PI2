@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -64,8 +65,6 @@ public class DataGrueController  implements Initializable {
     LineChart yFx;
     @FXML
     TextField tpsTotalCdg;
-    @FXML
-    TextField tpsMoyenCdg;
 
     Date startDate;
     ArrayList<Move> goodMoves = new ArrayList<Move>();
@@ -74,7 +73,7 @@ public class DataGrueController  implements Initializable {
     public void initialize(URL location, ResourceBundle resources){
         System.out.println("gjgj");
 
-        comboCategory.getItems().addAll("recap");
+        comboCategory.getItems().addAll("Recapitulatif global");
 
         comboHour.getItems().addAll("1. 8h - 9h", "2. 10h - 11h", "3. 12h - 13h","4. 14h - 15h", "5. 16h - 17h", "6. 18h - 19h");
 
@@ -107,9 +106,7 @@ public class DataGrueController  implements Initializable {
         String[] dateFormat = (localDate+"").split("-");
         startDate = date;
         for (int i = 0; i<=moves.size()-3; i++){
-            System.out.println("ccccc");
             if(moves.get(i).getDate().getTime()>= date.getTime()) {
-                System.out.println("hhhhh");
                 goodMoves.add(moves.get(i));
             }
         }
@@ -124,6 +121,7 @@ public class DataGrueController  implements Initializable {
 
         //ArrayList<Move> moves = oneByOneExample("data3.csv");
         ArrayList<Move> moves = goodMoves;
+        //System.out.println(moves);
         cdg.setCreateSymbols(false);
         long duree;
 
@@ -200,6 +198,28 @@ public class DataGrueController  implements Initializable {
 
                 }
             }
+            if(comboText[0].equals("4.")) {
+                if (heure[0].equals("14") || heure[0].equals("15")) {
+                    start = i;
+                    break;
+
+                }
+            }
+            if(comboText[0].equals("5.")) {
+                if (heure[0].equals("16") || heure[0].equals("17")) {
+                    start = i;
+                    break;
+
+                }
+            }
+            if(comboText[0].equals("6.")) {
+                if (heure[0].equals("18") || heure[0].equals("19")) {
+                    start = i;
+                    break;
+
+                }
+            }
+
 
         }
         end = start;
@@ -223,6 +243,27 @@ public class DataGrueController  implements Initializable {
             }
             if(comboText[0].equals("3.")) {
                 if (heure[0].equals("12")|| heure[0].equals("13")) {
+                    end ++;
+                    newListMove.add(moves.get(i));
+
+                }
+            }
+            if(comboText[0].equals("4.")) {
+                if (heure[0].equals("14")|| heure[0].equals("15")) {
+                    end ++;
+                    newListMove.add(moves.get(i));
+
+                }
+            }
+            if(comboText[0].equals("5.")) {
+                if (heure[0].equals("16")|| heure[0].equals("17")) {
+                    end ++;
+                    newListMove.add(moves.get(i));
+
+                }
+            }
+            if(comboText[0].equals("6.")) {
+                if (heure[0].equals("18")|| heure[0].equals("19")) {
                     end ++;
                     newListMove.add(moves.get(i));
 
@@ -253,7 +294,7 @@ public class DataGrueController  implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Recap.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
-            stage.setTitle("RECAP");
+            stage.setTitle("Recapitulatif");
             stage.setScene(new Scene(root1));
             stage.show();
         } catch(Exception e) {
