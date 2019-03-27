@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Model.LittleMoveController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LittleMoveController">
    <children>
       <Text layoutX="146.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Les petits déplacements " wrappingWidth="213.3919906616211" />
       <Button fx:id="BtnList" layoutX="392.0" layoutY="39.0" mnemonicParsing="false" onAction="#afficherListDeplacement" prefHeight="79.0" prefWidth="193.0" text="Liste des petits déplacements" />
