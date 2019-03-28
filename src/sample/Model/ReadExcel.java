@@ -18,7 +18,7 @@ public class ReadExcel {
     }
 
 
-    public static ArrayList<Move> oneByOneExample(String fileName) throws ParseException {
+    public static ArrayList<Move> fillMoves(String fileName) throws ParseException {
         ArrayList<String[]> tab = new ArrayList<String[]>();
         ArrayList<Move> moves = new ArrayList<Move>();
         moves.add(new Move());
